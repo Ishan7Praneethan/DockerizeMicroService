@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 import java.util.OptionalDouble;
 
 /**
@@ -47,6 +48,25 @@ public class TourRatingService {
     public void createNew(int tourId, Integer customerId, Integer score, String comment) throws NoSuchElementException {
         tourRatingRepository.save(new TourRating(verifyTour(tourId), customerId,
                 score, comment));
+    }
+
+    /**
+     * Get a ratings by id.
+     *
+     * @param id rating identifier
+     * @return TourRatings
+     */
+    public Optional<TourRating> lookupRatingById(int id)  {
+        return tourRatingRepository.findById(id);
+    }
+
+    /**
+     * Get All Ratings.
+     *
+     * @return List of TourRatings
+     */
+    public List<TourRating> lookupAll()  {
+        return tourRatingRepository.findAll();
     }
 
     /**
